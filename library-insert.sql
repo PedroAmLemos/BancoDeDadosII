@@ -8,7 +8,7 @@
 
 INSERT INTO library.publisher (Name, Address, Phone)
 VALUES ('Singer','Bayernstraße 23, 97292  Uettingen, Germany','03621 41 11 90');
-INSERT INTO library.publisher (Name, Address, Phone) 
+INSERT INTO library.publisher (Name, Address, Phone)
 VALUES ('Newton','183 COMMONWEALTH AVE BOSTON MA 02116-2209 USA','617-555-0138');
 INSERT INTO library.publisher (Name, Address, Phone)
 VALUES ('GST','31 Griffin Circle Buffalo, NY 14221','212-555-0109');
@@ -228,56 +228,15 @@ INSERT INTO library.borrower (Card_no, Name, Address, Phone) VALUES (10,'Bob Big
 
 --BOOK_LOANS
 
-INSERT INTO library.book_loans (Book_id, Branch_id, Card_no, Date_out, Due_date) VALUES (1,1,4,'2016-08-19','2016-09-19');
-INSERT INTO library.book_loans (Book_id, Branch_id, Card_no, Date_out, Due_date) VALUES (2,2,4,'2016-08-19','2016-09-19');
-INSERT INTO library.book_loans (Book_id, Branch_id, Card_no, Date_out, Due_date) VALUES (3,3,4,'2016-08-19','2016-09-19');
-INSERT INTO library.book_loans (Book_id, Branch_id, Card_no, Date_out, Due_date) VALUES (4,4,4,'2016-08-19','2016-09-19');
-INSERT INTO library.book_loans (Book_id, Branch_id, Card_no, Date_out, Due_date) VALUES (5,1,4,'2016-08-19','2016-09-19');
-INSERT INTO library.book_loans (Book_id, Branch_id, Card_no, Date_out, Due_date) VALUES (6,2,2,'2016-09-18','2016-10-18');
-INSERT INTO library.book_loans (Book_id, Branch_id, Card_no, Date_out, Due_date) VALUES (7,3,2,'2016-09-18','2016-10-18');
-INSERT INTO library.book_loans (Book_id, Branch_id, Card_no, Date_out, Due_date) VALUES (8,4,2,'2016-09-18','2016-10-18');
-INSERT INTO library.book_loans (Book_id, Branch_id, Card_no, Date_out, Due_date) VALUES (9,1,2,'2016-09-18','2016-10-18');
-INSERT INTO library.book_loans (Book_id, Branch_id, Card_no, Date_out, Due_date) VALUES (10,2,2,'2016-09-18','2016-10-18');
-INSERT INTO library.book_loans (Book_id, Branch_id, Card_no, Date_out, Due_date) VALUES (11,3,5,'2016-09-11','2016-10-11');
-INSERT INTO library.book_loans (Book_id, Branch_id, Card_no, Date_out, Due_date) VALUES (12,4,5,'2016-09-11','2016-10-11');
-INSERT INTO library.book_loans (Book_id, Branch_id, Card_no, Date_out, Due_date) VALUES (13,1,5,'2016-09-11','2016-10-11');
-INSERT INTO library.book_loans (Book_id, Branch_id, Card_no, Date_out, Due_date) VALUES (14,2,3,'2016-09-13','2016-10-13');
-INSERT INTO library.book_loans (Book_id, Branch_id, Card_no, Date_out, Due_date) VALUES (15,3,9,'2016-09-11','2016-10-11');
-INSERT INTO library.book_loans (Book_id, Branch_id, Card_no, Date_out, Due_date) VALUES (16,4,1,'2016-05-12','2016-06-12');
-INSERT INTO library.book_loans (Book_id, Branch_id, Card_no, Date_out, Due_date) VALUES (17,1,6,'2016-09-13','2016-10-13');
-INSERT INTO library.book_loans (Book_id, Branch_id, Card_no, Date_out, Due_date) VALUES (18,2,6,'2016-09-13','2016-10-13');
-INSERT INTO library.book_loans (Book_id, Branch_id, Card_no, Date_out, Due_date) VALUES (19,3,6,'2016-09-13','2016-10-13');
-INSERT INTO library.book_loans (Book_id, Branch_id, Card_no, Date_out, Due_date) VALUES (20,4,7,'2016-09-12','2016-10-12');
-INSERT INTO library.book_loans (Book_id, Branch_id, Card_no, Date_out, Due_date) VALUES (21,1,7,'2016-09-13','2016-10-13');
-INSERT INTO library.book_loans (Book_id, Branch_id, Card_no, Date_out, Due_date) VALUES (1,2,7,'2016-09-13','2016-10-13');
-INSERT INTO library.book_loans (Book_id, Branch_id, Card_no, Date_out, Due_date) VALUES (2,3,7,'2016-09-13','2016-10-13');
-INSERT INTO library.book_loans (Book_id, Branch_id, Card_no, Date_out, Due_date) VALUES (4,4,9,'2016-09-09','2016-10-09');
-INSERT INTO library.book_loans (Book_id, Branch_id, Card_no, Date_out, Due_date) VALUES (5,1,9,'2016-09-09','2016-10-09');
-INSERT INTO library.book_loans (Book_id, Branch_id, Card_no, Date_out, Due_date) VALUES (6,2,9,'2016-09-09','2016-10-09');
-INSERT INTO library.book_loans (Book_id, Branch_id, Card_no, Date_out, Due_date) VALUES (7,3,8,'2016-09-10','2016-10-10');
-INSERT INTO library.book_loans (Book_id, Branch_id, Card_no, Date_out, Due_date) VALUES (8,4,8,'2016-09-10','2016-10-10');
-INSERT INTO library.book_loans (Book_id, Branch_id, Card_no, Date_out, Due_date) VALUES (9,1,4,'2016-09-08','2016-10-08');
-INSERT INTO library.book_loans (Book_id, Branch_id, Card_no, Date_out, Due_date) VALUES (10,2,4,'2016-09-08','2016-10-08');
-INSERT INTO library.book_loans (Book_id, Branch_id, Card_no, Date_out, Due_date) VALUES (11,3,4,'2016-09-08','2016-10-08');
-INSERT INTO library.book_loans (Book_id, Branch_id, Card_no, Date_out, Due_date) VALUES (12,4,4,'2016-09-08','2016-10-08');
-INSERT INTO library.book_loans (Book_id, Branch_id, Card_no, Date_out, Due_date) VALUES (13,1,3,'2016-09-07','2016-10-07');
-INSERT INTO library.book_loans (Book_id, Branch_id, Card_no, Date_out, Due_date) VALUES (15,3,3,'2016-09-07','2016-10-07');
-INSERT INTO library.book_loans (Book_id, Branch_id, Card_no, Date_out, Due_date) VALUES (16,4,2,'2016-09-05','2016-10-05');
-INSERT INTO library.book_loans (Book_id, Branch_id, Card_no, Date_out, Due_date) VALUES (17,1,2,'2016-09-05','2016-10-05');
-INSERT INTO library.book_loans (Book_id, Branch_id, Card_no, Date_out, Due_date) VALUES (18,2,2,'2016-09-05','2016-10-05');
-INSERT INTO library.book_loans (Book_id, Branch_id, Card_no, Date_out, Due_date) VALUES (19,3,5,'2016-09-04','2016-10-04');
-INSERT INTO library.book_loans (Book_id, Branch_id, Card_no, Date_out, Due_date) VALUES (20,4,5,'2016-09-04','2016-10-04');
-INSERT INTO library.book_loans (Book_id, Branch_id, Card_no, Date_out, Due_date) VALUES (21,1,5,'2016-09-04','2016-10-04');
-INSERT INTO library.book_loans (Book_id, Branch_id, Card_no, Date_out, Due_date) VALUES (22,2,5,'2016-09-04','2016-10-04');
-INSERT INTO library.book_loans (Book_id, Branch_id, Card_no, Date_out, Due_date) VALUES (23,3,5,'2016-09-04','2016-10-04');
-INSERT INTO library.book_loans (Book_id, Branch_id, Card_no, Date_out, Due_date) VALUES (24,4,8,'2016-09-03','2016-10-03');
-INSERT INTO library.book_loans (Book_id, Branch_id, Card_no, Date_out, Due_date) VALUES (25,1,8,'2016-09-03','2016-10-03');
-INSERT INTO library.book_loans (Book_id, Branch_id, Card_no, Date_out, Due_date) VALUES (26,2,8,'2016-09-03','2016-10-03');
-INSERT INTO library.book_loans (Book_id, Branch_id, Card_no, Date_out, Due_date) VALUES (27,3,1,'2016-05-12','2016-06-12');
-INSERT INTO library.book_loans (Book_id, Branch_id, Card_no, Date_out, Due_date) VALUES (28,4,1,'2016-05-12','2016-06-12');
-INSERT INTO library.book_loans (Book_id, Branch_id, Card_no, Date_out, Due_date) VALUES (29,1,1,'2016-05-12','2016-06-12');
-INSERT INTO library.book_loans (Book_id, Branch_id, Card_no, Date_out, Due_date) VALUES (30,2,1,'2016-05-12','2016-06-12');
+INSERT INTO library.book_loans (Book_id, Branch_id, Card_no, Date_out, Due_date) VALUES (1,1,1,'2016-08-19','2016-09-19');
+INSERT INTO library.book_loans (Book_id, Branch_id, Card_no, Date_out, Due_date) VALUES (2,2,1,'2016-08-19','2016-10-19');
+INSERT INTO library.book_loans (Book_id, Branch_id, Card_no, Date_out, Due_date) VALUES (4,4,1,'2016-08-19','2016-11-19');
+INSERT INTO library.book_loans (Book_id, Branch_id, Card_no, Date_out, Due_date) VALUES (5,4,1,'2016-08-19','2016-08-21');
 
+INSERT INTO library.book_loans (Book_id, Branch_id, Card_no, Date_out, Due_date) VALUES (1,1,2,'2016-08-19','2016-09-19');
+INSERT INTO library.book_loans (Book_id, Branch_id, Card_no, Date_out, Due_date) VALUES (2,2,2,'2016-08-19','2016-10-19');
+INSERT INTO library.book_loans (Book_id, Branch_id, Card_no, Date_out, Due_date) VALUES (4,4,2,'2016-08-19','2016-11-19');
+INSERT INTO library.book_loans (Book_id, Branch_id, Card_no, Date_out, Due_date) VALUES (5,4,2,'2016-08-19','2016-08-21');
 
---confere
---SELECT * FROM library.publisher;
+DELETE FROM library.book_loans WHERE card_no = 1;
+DELETE FROM library.book_loans WHERE card_no = 2;

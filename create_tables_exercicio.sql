@@ -1,4 +1,4 @@
-DROP SCHEMA library cascade;
+DROP SCHEMA IF EXISTS library CASCADE;
 CREATE SCHEMA library;
 CREATE TABLE library.Publisher (
 	name VARCHAR(80) PRIMARY KEY,
