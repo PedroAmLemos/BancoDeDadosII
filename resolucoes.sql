@@ -68,193 +68,193 @@ CREATE TABLE library.book_loans
 
 
 INSERT INTO library.publisher (Name, Address, Phone)
-VALUES ('squash','Endereço da squash','43 3333 3333');
+VALUES ('squash', 'Endereço da squash', '43 3333 3333');
 INSERT INTO library.book (Book_id, Title, Publisher_name)
-VALUES (1,'Livro 1','squash');
+VALUES (1, 'Livro 1', 'squash');
 INSERT INTO library.publisher (Name, Address, Phone)
-VALUES ('reverse','Endereço da reverse','43 3333 3333');
+VALUES ('reverse', 'Endereço da reverse', '43 3333 3333');
 INSERT INTO library.book (Book_id, Title, Publisher_name)
-VALUES (2,'Livro 2','reverse');
+VALUES (2, 'Livro 2', 'reverse');
 INSERT INTO library.publisher (Name, Address, Phone)
-VALUES ('suppress','Endereço da suppress','43 3333 3333');
+VALUES ('suppress', 'Endereço da suppress', '43 3333 3333');
 INSERT INTO library.book (Book_id, Title, Publisher_name)
-VALUES (3,'Livro 3','suppress');
+VALUES (3, 'Livro 3', 'suppress');
 INSERT INTO library.publisher (Name, Address, Phone)
-VALUES ('appear','Endereço da appear','43 3333 3333');
+VALUES ('appear', 'Endereço da appear', '43 3333 3333');
 INSERT INTO library.book (Book_id, Title, Publisher_name)
-VALUES (4,'Livro 4','appear');
+VALUES (4, 'Livro 4', 'appear');
 INSERT INTO library.publisher (Name, Address, Phone)
-VALUES ('fibre','Endereço da fibre','43 3333 3333');
+VALUES ('fibre', 'Endereço da fibre', '43 3333 3333');
 INSERT INTO library.book (Book_id, Title, Publisher_name)
-VALUES (5,'Livro 5','fibre');
+VALUES (5, 'Livro 5', 'fibre');
 INSERT INTO library.publisher (Name, Address, Phone)
-VALUES ('rare','Endereço da rare','43 3333 3333');
+VALUES ('rare', 'Endereço da rare', '43 3333 3333');
 INSERT INTO library.book (Book_id, Title, Publisher_name)
-VALUES (6,'Livro 6','rare');
+VALUES (6, 'Livro 6', 'rare');
 INSERT INTO library.publisher (Name, Address, Phone)
-VALUES ('indoor','Endereço da indoor','43 3333 3333');
+VALUES ('indoor', 'Endereço da indoor', '43 3333 3333');
 INSERT INTO library.book (Book_id, Title, Publisher_name)
-VALUES (7,'Livro 7','indoor');
+VALUES (7, 'Livro 7', 'indoor');
 INSERT INTO library.publisher (Name, Address, Phone)
-VALUES ('accident','Endereço da accident','43 3333 3333');
+VALUES ('accident', 'Endereço da accident', '43 3333 3333');
 INSERT INTO library.book (Book_id, Title, Publisher_name)
-VALUES (8,'Livro 8','accident');
+VALUES (8, 'Livro 8', 'accident');
 INSERT INTO library.publisher (Name, Address, Phone)
-VALUES ('glide','Endereço da glide','43 3333 3333');
+VALUES ('glide', 'Endereço da glide', '43 3333 3333');
 INSERT INTO library.book (Book_id, Title, Publisher_name)
-VALUES (9,'Livro 9','glide');
+VALUES (9, 'Livro 9', 'glide');
 INSERT INTO library.publisher (Name, Address, Phone)
-VALUES ('rest','Endereço da rest','43 3333 3333');
+VALUES ('rest', 'Endereço da rest', '43 3333 3333');
 INSERT INTO library.book (Book_id, Title, Publisher_name)
-VALUES (10,'Livro 10','rest');
+VALUES (10, 'Livro 10', 'rest');
 INSERT INTO library.publisher (Name, Address, Phone)
-VALUES ('mill','Endereço da mill','43 3333 3333');
+VALUES ('mill', 'Endereço da mill', '43 3333 3333');
 INSERT INTO library.book (Book_id, Title, Publisher_name)
-VALUES (11,'Livro 11','mill');
+VALUES (11, 'Livro 11', 'mill');
 INSERT INTO library.publisher (Name, Address, Phone)
-VALUES ('injury','Endereço da injury','43 3333 3333');
+VALUES ('injury', 'Endereço da injury', '43 3333 3333');
 INSERT INTO library.book (Book_id, Title, Publisher_name)
-VALUES (12,'Livro 12','injury');
+VALUES (12, 'Livro 12', 'injury');
 INSERT INTO library.publisher (Name, Address, Phone)
-VALUES ('hover','Endereço da hover','43 3333 3333');
+VALUES ('hover', 'Endereço da hover', '43 3333 3333');
 INSERT INTO library.book (Book_id, Title, Publisher_name)
-VALUES (13,'Livro 13','hover');
+VALUES (13, 'Livro 13', 'hover');
 INSERT INTO library.publisher (Name, Address, Phone)
-VALUES ('bitch','Endereço da bitch','43 3333 3333');
+VALUES ('bitch', 'Endereço da bitch', '43 3333 3333');
 INSERT INTO library.book (Book_id, Title, Publisher_name)
-VALUES (14,'Livro 14','bitch');
+VALUES (14, 'Livro 14', 'bitch');
 INSERT INTO library.publisher (Name, Address, Phone)
-VALUES ('apology','Endereço da apology','43 3333 3333');
+VALUES ('apology', 'Endereço da apology', '43 3333 3333');
 INSERT INTO library.book (Book_id, Title, Publisher_name)
-VALUES (15,'Livro 15','apology');
+VALUES (15, 'Livro 15', 'apology');
 INSERT INTO library.publisher (Name, Address, Phone)
-VALUES ('army','Endereço da army','43 3333 3333');
+VALUES ('army', 'Endereço da army', '43 3333 3333');
 INSERT INTO library.book (Book_id, Title, Publisher_name)
-VALUES (16,'Livro 16','army');
+VALUES (16, 'Livro 16', 'army');
 INSERT INTO library.publisher (Name, Address, Phone)
-VALUES ('family','Endereço da family','43 3333 3333');
+VALUES ('family', 'Endereço da family', '43 3333 3333');
 INSERT INTO library.book (Book_id, Title, Publisher_name)
-VALUES (17,'Livro 17','family');
+VALUES (17, 'Livro 17', 'family');
 INSERT INTO library.publisher (Name, Address, Phone)
-VALUES ('skilled','Endereço da skilled','43 3333 3333');
+VALUES ('skilled', 'Endereço da skilled', '43 3333 3333');
 INSERT INTO library.book (Book_id, Title, Publisher_name)
-VALUES (18,'Livro 18','skilled');
+VALUES (18, 'Livro 18', 'skilled');
 INSERT INTO library.publisher (Name, Address, Phone)
-VALUES ('tent','Endereço da tent','43 3333 3333');
+VALUES ('tent', 'Endereço da tent', '43 3333 3333');
 INSERT INTO library.book (Book_id, Title, Publisher_name)
-VALUES (19,'Livro 19','tent');
+VALUES (19, 'Livro 19', 'tent');
 INSERT INTO library.publisher (Name, Address, Phone)
-VALUES ('gesture','Endereço da gesture','43 3333 3333');
+VALUES ('gesture', 'Endereço da gesture', '43 3333 3333');
 INSERT INTO library.book (Book_id, Title, Publisher_name)
-VALUES (20,'Livro 20','gesture');
+VALUES (20, 'Livro 20', 'gesture');
 INSERT INTO library.publisher (Name, Address, Phone)
-VALUES ('belief','Endereço da belief','43 3333 3333');
+VALUES ('belief', 'Endereço da belief', '43 3333 3333');
 INSERT INTO library.book (Book_id, Title, Publisher_name)
-VALUES (21,'Livro 21','belief');
+VALUES (21, 'Livro 21', 'belief');
 INSERT INTO library.publisher (Name, Address, Phone)
-VALUES ('thought','Endereço da thought','43 3333 3333');
+VALUES ('thought', 'Endereço da thought', '43 3333 3333');
 INSERT INTO library.book (Book_id, Title, Publisher_name)
-VALUES (22,'Livro 22','thought');
+VALUES (22, 'Livro 22', 'thought');
 INSERT INTO library.publisher (Name, Address, Phone)
-VALUES ('worth','Endereço da worth','43 3333 3333');
+VALUES ('worth', 'Endereço da worth', '43 3333 3333');
 INSERT INTO library.book (Book_id, Title, Publisher_name)
-VALUES (23,'Livro 23','worth');
+VALUES (23, 'Livro 23', 'worth');
 INSERT INTO library.publisher (Name, Address, Phone)
-VALUES ('hunting','Endereço da hunting','43 3333 3333');
+VALUES ('hunting', 'Endereço da hunting', '43 3333 3333');
 INSERT INTO library.book (Book_id, Title, Publisher_name)
-VALUES (24,'Livro 24','hunting');
+VALUES (24, 'Livro 24', 'hunting');
 INSERT INTO library.publisher (Name, Address, Phone)
-VALUES ('install','Endereço da install','43 3333 3333');
+VALUES ('install', 'Endereço da install', '43 3333 3333');
 INSERT INTO library.book (Book_id, Title, Publisher_name)
-VALUES (25,'Livro 25','install');
+VALUES (25, 'Livro 25', 'install');
 INSERT INTO library.publisher (Name, Address, Phone)
-VALUES ('rocket','Endereço da rocket','43 3333 3333');
+VALUES ('rocket', 'Endereço da rocket', '43 3333 3333');
 INSERT INTO library.book (Book_id, Title, Publisher_name)
-VALUES (26,'Livro 26','rocket');
+VALUES (26, 'Livro 26', 'rocket');
 INSERT INTO library.publisher (Name, Address, Phone)
-VALUES ('false','Endereço da false','43 3333 3333');
+VALUES ('false', 'Endereço da false', '43 3333 3333');
 INSERT INTO library.book (Book_id, Title, Publisher_name)
-VALUES (27,'Livro 27','false');
+VALUES (27, 'Livro 27', 'false');
 INSERT INTO library.publisher (Name, Address, Phone)
-VALUES ('bracket','Endereço da bracket','43 3333 3333');
+VALUES ('bracket', 'Endereço da bracket', '43 3333 3333');
 INSERT INTO library.book (Book_id, Title, Publisher_name)
-VALUES (28,'Livro 28','bracket');
+VALUES (28, 'Livro 28', 'bracket');
 INSERT INTO library.publisher (Name, Address, Phone)
-VALUES ('demonstration','Endereço da demonstration','43 3333 3333');
+VALUES ('demonstration', 'Endereço da demonstration', '43 3333 3333');
 INSERT INTO library.book (Book_id, Title, Publisher_name)
-VALUES (29,'Livro 29','demonstration');
+VALUES (29, 'Livro 29', 'demonstration');
 INSERT INTO library.publisher (Name, Address, Phone)
-VALUES ('dine','Endereço da dine','43 3333 3333');
+VALUES ('dine', 'Endereço da dine', '43 3333 3333');
 INSERT INTO library.book (Book_id, Title, Publisher_name)
-VALUES (30,'Livro 30','dine');
+VALUES (30, 'Livro 30', 'dine');
 INSERT INTO library.publisher (Name, Address, Phone)
-VALUES ('loose','Endereço da loose','43 3333 3333');
+VALUES ('loose', 'Endereço da loose', '43 3333 3333');
 INSERT INTO library.book (Book_id, Title, Publisher_name)
-VALUES (31,'Livro 31','loose');
+VALUES (31, 'Livro 31', 'loose');
 INSERT INTO library.publisher (Name, Address, Phone)
-VALUES ('initiative','Endereço da initiative','43 3333 3333');
+VALUES ('initiative', 'Endereço da initiative', '43 3333 3333');
 INSERT INTO library.book (Book_id, Title, Publisher_name)
-VALUES (32,'Livro 32','initiative');
+VALUES (32, 'Livro 32', 'initiative');
 INSERT INTO library.publisher (Name, Address, Phone)
-VALUES ('calculation','Endereço da calculation','43 3333 3333');
+VALUES ('calculation', 'Endereço da calculation', '43 3333 3333');
 INSERT INTO library.book (Book_id, Title, Publisher_name)
-VALUES (33,'Livro 33','calculation');
+VALUES (33, 'Livro 33', 'calculation');
 INSERT INTO library.publisher (Name, Address, Phone)
-VALUES ('content','Endereço da content','43 3333 3333');
+VALUES ('content', 'Endereço da content', '43 3333 3333');
 INSERT INTO library.book (Book_id, Title, Publisher_name)
-VALUES (34,'Livro 34','content');
+VALUES (34, 'Livro 34', 'content');
 INSERT INTO library.publisher (Name, Address, Phone)
-VALUES ('vacuum','Endereço da vacuum','43 3333 3333');
+VALUES ('vacuum', 'Endereço da vacuum', '43 3333 3333');
 INSERT INTO library.book (Book_id, Title, Publisher_name)
-VALUES (35,'Livro 35','vacuum');
+VALUES (35, 'Livro 35', 'vacuum');
 INSERT INTO library.publisher (Name, Address, Phone)
-VALUES ('carbon','Endereço da carbon','43 3333 3333');
+VALUES ('carbon', 'Endereço da carbon', '43 3333 3333');
 INSERT INTO library.book (Book_id, Title, Publisher_name)
-VALUES (36,'Livro 36','carbon');
+VALUES (36, 'Livro 36', 'carbon');
 INSERT INTO library.publisher (Name, Address, Phone)
-VALUES ('concession','Endereço da concession','43 3333 3333');
+VALUES ('concession', 'Endereço da concession', '43 3333 3333');
 INSERT INTO library.book (Book_id, Title, Publisher_name)
-VALUES (37,'Livro 37','concession');
+VALUES (37, 'Livro 37', 'concession');
 INSERT INTO library.publisher (Name, Address, Phone)
-VALUES ('stun','Endereço da stun','43 3333 3333');
+VALUES ('stun', 'Endereço da stun', '43 3333 3333');
 INSERT INTO library.book (Book_id, Title, Publisher_name)
-VALUES (38,'Livro 38','stun');
+VALUES (38, 'Livro 38', 'stun');
 INSERT INTO library.publisher (Name, Address, Phone)
-VALUES ('wedding','Endereço da wedding','43 3333 3333');
+VALUES ('wedding', 'Endereço da wedding', '43 3333 3333');
 INSERT INTO library.book (Book_id, Title, Publisher_name)
-VALUES (39,'Livro 39','wedding');
+VALUES (39, 'Livro 39', 'wedding');
 INSERT INTO library.publisher (Name, Address, Phone)
-VALUES ('ballot','Endereço da ballot','43 3333 3333');
+VALUES ('ballot', 'Endereço da ballot', '43 3333 3333');
 INSERT INTO library.book (Book_id, Title, Publisher_name)
-VALUES (40,'Livro 40','ballot');
+VALUES (40, 'Livro 40', 'ballot');
 INSERT INTO library.publisher (Name, Address, Phone)
-VALUES ('perforate','Endereço da perforate','43 3333 3333');
+VALUES ('perforate', 'Endereço da perforate', '43 3333 3333');
 INSERT INTO library.book (Book_id, Title, Publisher_name)
-VALUES (41,'Livro 41','perforate');
+VALUES (41, 'Livro 41', 'perforate');
 INSERT INTO library.publisher (Name, Address, Phone)
-VALUES ('roof','Endereço da roof','43 3333 3333');
+VALUES ('roof', 'Endereço da roof', '43 3333 3333');
 INSERT INTO library.book (Book_id, Title, Publisher_name)
-VALUES (42,'Livro 42','roof');
+VALUES (42, 'Livro 42', 'roof');
 INSERT INTO library.publisher (Name, Address, Phone)
-VALUES ('vessel','Endereço da vessel','43 3333 3333');
+VALUES ('vessel', 'Endereço da vessel', '43 3333 3333');
 INSERT INTO library.book (Book_id, Title, Publisher_name)
-VALUES (43,'Livro 43','vessel');
+VALUES (43, 'Livro 43', 'vessel');
 INSERT INTO library.publisher (Name, Address, Phone)
-VALUES ('dash','Endereço da dash','43 3333 3333');
+VALUES ('dash', 'Endereço da dash', '43 3333 3333');
 INSERT INTO library.book (Book_id, Title, Publisher_name)
-VALUES (44,'Livro 44','dash');
+VALUES (44, 'Livro 44', 'dash');
 INSERT INTO library.publisher (Name, Address, Phone)
-VALUES ('mix','Endereço da mix','43 3333 3333');
+VALUES ('mix', 'Endereço da mix', '43 3333 3333');
 INSERT INTO library.book (Book_id, Title, Publisher_name)
-VALUES (45,'Livro 45','mix');
+VALUES (45, 'Livro 45', 'mix');
 INSERT INTO library.publisher (Name, Address, Phone)
-VALUES ('pain','Endereço da pain','43 3333 3333');
+VALUES ('pain', 'Endereço da pain', '43 3333 3333');
 INSERT INTO library.book (Book_id, Title, Publisher_name)
-VALUES (46,'Livro 46','pain');
+VALUES (46, 'Livro 46', 'pain');
 INSERT INTO library.publisher (Name, Address, Phone)
-VALUES ('star','Endereço da star','43 3333 3333');
+VALUES ('star', 'Endereço da star', '43 3333 3333');
 INSERT INTO library.book (Book_id, Title, Publisher_name)
-VALUES (47,'Livro 47','star');
+VALUES (47, 'Livro 47', 'star');
 
 
 -- Inserindo os autores (nomes aleatórios)
@@ -308,134 +308,132 @@ VALUES (21, 'Kristofer Lam');
 
 
 INSERT INTO library.library_branch (Branch_id, Branch_name, Address)
-VALUES (1,'Regiao 1','Rua Aleatória 1');
+VALUES (1, 'Regiao 1', 'Rua Aleatória 1');
 INSERT INTO library.library_branch (Branch_id, Branch_name, Address)
-VALUES (2,'Regiao 2','Rua Aleatória 2');
+VALUES (2, 'Regiao 2', 'Rua Aleatória 2');
 INSERT INTO library.library_branch (Branch_id, Branch_name, Address)
-VALUES (3,'Regiao 3','Rua Aleatória 3');
+VALUES (3, 'Regiao 3', 'Rua Aleatória 3');
 INSERT INTO library.library_branch (Branch_id, Branch_name, Address)
-VALUES (4,'Regiao 4','Rua Aleatória 4');
+VALUES (4, 'Regiao 4', 'Rua Aleatória 4');
 
 
 -- Inserindo as copias dos livros
 
 
 INSERT INTO library.book_copies (book_id, branch_id, no_of_copies)
-VALUES (1, 2, 3);
+VALUES (1, 1, 3);
 INSERT INTO library.book_copies (book_id, branch_id, no_of_copies)
-VALUES (2, 3, 3);
+VALUES (2, 2, 3);
 INSERT INTO library.book_copies (book_id, branch_id, no_of_copies)
-VALUES (3, 4, 3);
+VALUES (3, 3, 3);
 INSERT INTO library.book_copies (book_id, branch_id, no_of_copies)
-VALUES (4, 1, 3);
+VALUES (4, 4, 3);
 INSERT INTO library.book_copies (book_id, branch_id, no_of_copies)
-VALUES (5, 2, 3);
+VALUES (5, 1, 3);
 INSERT INTO library.book_copies (book_id, branch_id, no_of_copies)
-VALUES (6, 3, 3);
+VALUES (6, 2, 3);
 INSERT INTO library.book_copies (book_id, branch_id, no_of_copies)
-VALUES (7, 4, 3);
+VALUES (7, 3, 3);
 INSERT INTO library.book_copies (book_id, branch_id, no_of_copies)
-VALUES (8, 1, 3);
+VALUES (8, 4, 3);
 INSERT INTO library.book_copies (book_id, branch_id, no_of_copies)
-VALUES (9, 2, 3);
+VALUES (9, 1, 3);
 INSERT INTO library.book_copies (book_id, branch_id, no_of_copies)
-VALUES (10, 3, 3);
+VALUES (10, 2, 3);
 INSERT INTO library.book_copies (book_id, branch_id, no_of_copies)
-VALUES (11, 4, 3);
+VALUES (11, 3, 3);
 INSERT INTO library.book_copies (book_id, branch_id, no_of_copies)
-VALUES (12, 1, 3);
+VALUES (12, 4, 3);
 INSERT INTO library.book_copies (book_id, branch_id, no_of_copies)
-VALUES (13, 2, 3);
+VALUES (13, 1, 3);
 INSERT INTO library.book_copies (book_id, branch_id, no_of_copies)
-VALUES (14, 3, 3);
+VALUES (14, 2, 3);
 INSERT INTO library.book_copies (book_id, branch_id, no_of_copies)
-VALUES (15, 4, 3);
+VALUES (15, 3, 3);
 INSERT INTO library.book_copies (book_id, branch_id, no_of_copies)
-VALUES (16, 1, 3);
+VALUES (16, 4, 3);
 INSERT INTO library.book_copies (book_id, branch_id, no_of_copies)
-VALUES (17, 2, 3);
+VALUES (17, 1, 3);
 INSERT INTO library.book_copies (book_id, branch_id, no_of_copies)
-VALUES (18, 3, 3);
+VALUES (18, 2, 3);
 INSERT INTO library.book_copies (book_id, branch_id, no_of_copies)
-VALUES (19, 4, 3);
+VALUES (19, 3, 3);
 INSERT INTO library.book_copies (book_id, branch_id, no_of_copies)
-VALUES (20, 1, 3);
+VALUES (20, 4, 3);
 INSERT INTO library.book_copies (book_id, branch_id, no_of_copies)
-VALUES (21, 2, 3);
+VALUES (21, 1, 3);
 INSERT INTO library.book_copies (book_id, branch_id, no_of_copies)
-VALUES (22, 3, 3);
+VALUES (22, 2, 3);
 INSERT INTO library.book_copies (book_id, branch_id, no_of_copies)
-VALUES (23, 4, 3);
+VALUES (23, 3, 3);
 INSERT INTO library.book_copies (book_id, branch_id, no_of_copies)
-VALUES (24, 1, 3);
+VALUES (24, 4, 3);
 INSERT INTO library.book_copies (book_id, branch_id, no_of_copies)
-VALUES (25, 2, 3);
+VALUES (25, 1, 3);
 INSERT INTO library.book_copies (book_id, branch_id, no_of_copies)
-VALUES (26, 3, 3);
+VALUES (26, 2, 3);
 INSERT INTO library.book_copies (book_id, branch_id, no_of_copies)
-VALUES (27, 4, 3);
+VALUES (27, 3, 3);
 INSERT INTO library.book_copies (book_id, branch_id, no_of_copies)
-VALUES (28, 1, 3);
+VALUES (28, 4, 3);
 INSERT INTO library.book_copies (book_id, branch_id, no_of_copies)
-VALUES (29, 2, 3);
+VALUES (29, 1, 3);
 INSERT INTO library.book_copies (book_id, branch_id, no_of_copies)
-VALUES (30, 3, 3);
+VALUES (30, 2, 3);
 INSERT INTO library.book_copies (book_id, branch_id, no_of_copies)
-VALUES (31, 4, 3);
+VALUES (31, 3, 3);
 INSERT INTO library.book_copies (book_id, branch_id, no_of_copies)
-VALUES (32, 1, 3);
+VALUES (32, 4, 3);
 INSERT INTO library.book_copies (book_id, branch_id, no_of_copies)
-VALUES (33, 2, 3);
+VALUES (33, 1, 3);
 INSERT INTO library.book_copies (book_id, branch_id, no_of_copies)
-VALUES (34, 3, 3);
+VALUES (34, 2, 3);
 INSERT INTO library.book_copies (book_id, branch_id, no_of_copies)
-VALUES (35, 4, 3);
+VALUES (35, 3, 3);
 INSERT INTO library.book_copies (book_id, branch_id, no_of_copies)
-VALUES (36, 1, 3);
+VALUES (36, 4, 3);
 INSERT INTO library.book_copies (book_id, branch_id, no_of_copies)
-VALUES (37, 2, 3);
+VALUES (37, 1, 3);
 INSERT INTO library.book_copies (book_id, branch_id, no_of_copies)
-VALUES (38, 3, 3);
+VALUES (38, 2, 3);
 INSERT INTO library.book_copies (book_id, branch_id, no_of_copies)
-VALUES (39, 4, 3);
+VALUES (39, 3, 3);
+INSERT INTO library.book_copies (book_id, branch_id, no_of_copies)
+VALUES (40, 4, 3);
 
 
 -- Inserindo os membros
 
 
 INSERT INTO library.borrower (Card_no, Name, Address, Phone)
-VALUES (1,'Theresa Gardner','endereço', 'telefone');
+VALUES (1, 'Theresa Gardner', 'endereço', 'telefone');
 INSERT INTO library.borrower (Card_no, Name, Address, Phone)
-VALUES (2,'Michael Reynolds','endereço', 'telefone');
+VALUES (2, 'Michael Reynolds', 'endereço', 'telefone');
 INSERT INTO library.borrower (Card_no, Name, Address, Phone)
-VALUES (3,'Harold Gray','endereço', 'telefone');
+VALUES (3, 'Harold Gray', 'endereço', 'telefone');
 INSERT INTO library.borrower (Card_no, Name, Address, Phone)
-VALUES (4,'April Hanson','endereço', 'telefone');
+VALUES (4, 'April Hanson', 'endereço', 'telefone');
 INSERT INTO library.borrower (Card_no, Name, Address, Phone)
-VALUES (5,'Joshua Jones','endereço', 'telefone');
+VALUES (5, 'Joshua Jones', 'endereço', 'telefone');
 INSERT INTO library.borrower (Card_no, Name, Address, Phone)
-VALUES (6,'Emily Nguyen','endereço', 'telefone');
+VALUES (6, 'Emily Nguyen', 'endereço', 'telefone');
 INSERT INTO library.borrower (Card_no, Name, Address, Phone)
-VALUES (7,'Charles Joyce','endereço', 'telefone');
+VALUES (7, 'Charles Joyce', 'endereço', 'telefone');
 INSERT INTO library.borrower (Card_no, Name, Address, Phone)
-VALUES (8,'Michael Moreno','endereço', 'telefone');
+VALUES (8, 'Michael Moreno', 'endereço', 'telefone');
 INSERT INTO library.borrower (Card_no, Name, Address, Phone)
-VALUES (9,'Erik Long','endereço', 'telefone');
+VALUES (9, 'Erik Long', 'endereço', 'telefone');
 INSERT INTO library.borrower (Card_no, Name, Address, Phone)
-VALUES (10,'Susan Colon','endereço', 'telefone');
+VALUES (10, 'Susan Colon', 'endereço', 'telefone');
 
-
-
+-- =========================EXERCICIOS =========================E
 -- EXERCICIO 1
--- TESTANDO
+-- INSERINDO 2 LOAN, 1 ONDE O PERIODO É PELO MENOS 30 DIAS E OUTRA NÃO
 INSERT INTO library.book_loans (Book_id, Branch_id, Card_no, Date_out, Due_date)
-VALUES (1, 1, 1, '2016-08-19', '2016-09-19'); -- deve aparecer
+VALUES (1, 1, 1, '2016-08-19', '2016-11-19'); -- deve aparecer
 INSERT INTO library.book_loans (Book_id, Branch_id, Card_no, Date_out, Due_date)
-VALUES (2, 2, 1, '2016-08-19', '2016-10-19'); -- deve aparecer
-INSERT INTO library.book_loans (Book_id, Branch_id, Card_no, Date_out, Due_date)
-VALUES (3, 3, 1, '2016-08-19', '2016-11-19'); -- deve aparecer
-INSERT INTO library.book_loans (Book_id, Branch_id, Card_no, Date_out, Due_date)
-VALUES (4, 4, 1, '2016-08-19', '2016-08-21'); -- nao deve aparecer
+VALUES (2, 2, 1, '2016-08-19', '2016-08-21');
+-- nao deve aparecer
 
 -- CRIANDO AS VIEWS
 CREATE MATERIALIZED VIEW library.month_borrowers AS
@@ -450,18 +448,45 @@ FROM library.Borrower b
          JOIN library.Book_Loans bl ON b.card_no = bl.card_no
          JOIN library.Book book ON bl.book_id = book.book_id
          JOIN library.Library_Branch branch ON bl.branch_id = branch.branch_id
-WHERE bl.due_date - bl.date_out >= 30;
+         JOIN (SELECT COUNT(*) as count
+               FROM library.book_loans bli
+               WHERE bli.due_date - bli.date_out >= 30
+               GROUP BY bli.card_no) more on bl.card_no = b.card_no
+WHERE bl.due_date - bl.date_out >= 30
+  and count > 1;
 
-SELECT * FROM library.month_borrowers;
+
+-- NENHUM RESULTADO
+SELECT *
+FROM library.month_borrowers;
+
+-- INSERINDO MAIS UM LOAN COM PELO MENOS 30 DIAS
+INSERT INTO library.book_loans (Book_id, Branch_id, Card_no, Date_out, Due_date)
+VALUES (3, 3, 1, '2016-08-19', '2016-09-19');
+-- deve aparecer
+
+-- ATUALIZA A VIEW
+REFRESH MATERIALIZED VIEW library.month_borrowers;
+
+-- 2 LOANS COM PELO MENOS DE 30 DIAS
+SELECT *
+FROM library.month_borrowers;
 
 -- Novas inserções para teste,
-INSERT INTO library.book_loans (Book_id, Branch_id, Card_no, Date_out, Due_date) VALUES (1,1,2,'2016-08-19','2016-09-19'); -- deve aparecer
-INSERT INTO library.book_loans (Book_id, Branch_id, Card_no, Date_out, Due_date) VALUES (2,2,2,'2016-08-19','2016-10-19'); -- deve aparecer
-INSERT INTO library.book_loans (Book_id, Branch_id, Card_no, Date_out, Due_date) VALUES (3,3,2,'2016-08-19','2016-11-19'); -- deve aparecer
-INSERT INTO library.book_loans (Book_id, Branch_id, Card_no, Date_out, Due_date) VALUES (4,4,2,'2016-08-19','2016-08-21'); -- nao deve aparecer
+INSERT INTO library.book_loans (Book_id, Branch_id, Card_no, Date_out, Due_date)
+VALUES (1, 1, 2, '2016-08-19', '2016-09-19'); -- deve aparecer
+INSERT INTO library.book_loans (Book_id, Branch_id, Card_no, Date_out, Due_date)
+VALUES (2, 2, 2, '2016-08-19', '2016-10-19'); -- deve aparecer
+INSERT INTO library.book_loans (Book_id, Branch_id, Card_no, Date_out, Due_date)
+VALUES (3, 3, 2, '2016-08-19', '2016-11-19'); -- deve aparecer
+INSERT INTO library.book_loans (Book_id, Branch_id, Card_no, Date_out, Due_date)
+VALUES (4, 4, 2, '2016-08-19', '2016-08-21');
+-- nao deve aparecer
 
 
 -- ATUALIZA
 REFRESH MATERIALIZED VIEW library.month_borrowers;
 
-select * from library.month_borrowers;
+-- 5 LOANS COM PELO MENOS 30 DIAS
+select *
+from library.month_borrowers;

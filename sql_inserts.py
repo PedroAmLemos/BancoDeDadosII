@@ -101,10 +101,10 @@ for i in range(1, 5):
           f"VALUES ({i},'Regiao {i}','Rua Aleatória {i}');")
 
 print('\n\n-- Inserindo as copias dos livros\n\n')
-for i in range(1, 40):
+for i in range(0, 40):
     num = i % 4 + 1
     print(f"INSERT INTO library.book_copies (book_id, branch_id, no_of_copies)\n"
-          f"VALUES ({i}, {num}, 3);")
+          f"VALUES ({i+1}, {num}, 3);")
 
 print('\n\n-- Inserindo os membros\n\n')
 for i, borrower in enumerate(borrowers):
