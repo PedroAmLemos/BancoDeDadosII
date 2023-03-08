@@ -79,16 +79,27 @@ FROM library.book_copies;
 
 
 -- Create temporary table
--- CREATE TEMPORARY TABLE temp_book_copies AS
--- SELECT
---     book_id,
---     branch_id,
---     no_of_copies
--- FROM library.book_copies;
+ROLLBACK;
+BEGIN;
+
+CREATE TEMPORARY TABLE current_book_copies AS
+SELECT
+    book_id,
+    branch_id,
+    no_of_copies
+FROM library.book_copies;
 --
 -- -- Remove no_of_copies column from book_copies table
--- ALTER TABLE library.book_copies DROP COLUMN no_of_copies;
---
+ALTER TABLE library.book_copies DROP COLUMN no_of_copies;
+
+TRUNCATE library.book_copies;
+
+-- Select * from LIBRARY.BOOK_COPIES;
+
+ALTER TABLE library.book_copies ADD COLUMN acquisition_date DATE NOT NULL DEFAULT CURRENT_DATE;
+ALTER TABLE library.book_copies ADD COLUMN condition VARCHAR(10) NOT NULL CHECK (condition IN ('fine', 'good', 'fair', 'poor')) DEFAULT 'fair';
+ALTER TABLE library.book_copies DROP CONSTRAINT pk_copies;
+
 -- -- Create new book_copies table with additional columns
 -- CREATE TABLE library.book_copies_new
 -- (
@@ -102,10 +113,35 @@ FROM library.book_copies;
 -- );
 --
 -- -- Insert data from temp_book_copies into new book_copies table
--- INSERT INTO library.book_copies_new (book_id, branch_id, copy_id)
--- SELECT book_id, branch_id, generate_series(1, no_of_copies)
--- FROM temp_book_copies
--- ORDER BY book_id, branch_id;
+-- INSERT INTO current_book_copies (book_id, branch_id, acquisition_date, conditions)
+-- select book_id, branch_id, aquisition_date
+-- from temp_book_copies
+-- join (SELECT date '2008-01-01' + (INTERVAL '1' MONTH * GENERATE_SERIES(0,3))) AS aquisition_date on 1 = 1
+-- GROUP BY book_id, branch_id, aquisition_date;
+
+
+-- inserir os livros da tabela copia para a tabela alterada
+INSERT INTO library.book_copies (book_id, branch_id)
+select book_id, branch_id from(
+SELECT book_id, branch_id, generate_series(1, no_of_copies)
+FROM pg_temp.current_book_copies
+ORDER BY book_id, branch_id) as carlos;
+
+select * from library.book_copies;
+
+
+SELECT *
+FROM (SELECT b.book_id, c.branch_id, COUNT(*), cbc.no_of_copies
+      FROM library.book b
+               JOIN library.book_copies c on b.book_id = c.book_id
+               JOIN current_book_copies cbc on b.book_id = cbc.book_id
+      group by b.book_id, c.branch_id, cbc.no_of_copies) AS temp
+WHERE temp.count <> temp.no_of_copies;
+
+-- ADICIONANDO INCONSISTENCIA
+INSERT INTO library.book_copies (book_id, branch_id, condition) VALUES(1, 1, 'good');
+DELETE FROM library.book_copies b WHERE b.book_id = 1 AND b.branch_id = 1 AND b.condition = 'good';
+
 --
 -- -- Drop temporary table
 -- DROP TABLE temp_book_copies;
@@ -189,4 +225,4 @@ FROM library.book_copies;
 -- ) AS temp
 -- WHERE temp.count <> temp.sum;
 --
--- ROLLBACK;
+ROLLBACK;
