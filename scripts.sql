@@ -119,6 +119,15 @@ ALTER TABLE library.book_copies DROP CONSTRAINT pk_copies;
 -- join (SELECT date '2008-01-01' + (INTERVAL '1' MONTH * GENERATE_SERIES(0,3))) AS aquisition_date on 1 = 1
 -- GROUP BY book_id, branch_id, aquisition_date;
 
+SELECT *
+FROM (SELECT cbc.book_id, cbc.branch_id, COUNT(*), cbc.no_of_copies
+      FROM library.book b
+               JOIN library.book_copies c on b.book_id = c.book_id
+               JOIN current_book_copies cbc on b.book_id = cbc.book_id
+      group by cbc.book_id, cbc.branch_id, cbc.no_of_copies) AS temp
+WHERE temp.count <> temp.no_of_copies;
+
+
 
 -- inserir os livros da tabela copia para a tabela alterada
 INSERT INTO library.book_copies (book_id, branch_id)
@@ -130,13 +139,6 @@ ORDER BY book_id, branch_id) as carlos;
 select * from library.book_copies;
 
 
-SELECT *
-FROM (SELECT b.book_id, c.branch_id, COUNT(*), cbc.no_of_copies
-      FROM library.book b
-               JOIN library.book_copies c on b.book_id = c.book_id
-               JOIN current_book_copies cbc on b.book_id = cbc.book_id
-      group by b.book_id, c.branch_id, cbc.no_of_copies) AS temp
-WHERE temp.count <> temp.no_of_copies;
 
 -- ADICIONANDO INCONSISTENCIA
 INSERT INTO library.book_copies (book_id, branch_id, condition) VALUES(1, 1, 'good');
