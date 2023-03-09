@@ -78,153 +78,91 @@ FROM library.book_copies;
 
 
 
--- Create temporary table
-ROLLBACK;
-BEGIN;
 
+BEGIN;
+-- Create temporary table
 CREATE TEMPORARY TABLE current_book_copies AS
 SELECT
     book_id,
     branch_id,
     no_of_copies
 FROM library.book_copies;
---
--- -- Remove no_of_copies column from book_copies table
+
+-- Remove no_of_copies column from book_copies table, constraint and adding columns
 ALTER TABLE library.book_copies DROP COLUMN no_of_copies;
-
-TRUNCATE library.book_copies;
-
--- Select * from LIBRARY.BOOK_COPIES;
-
+ALTER TABLE library.book_copies DROP CONSTRAINT pk_copies;
 ALTER TABLE library.book_copies ADD COLUMN acquisition_date DATE NOT NULL DEFAULT CURRENT_DATE;
 ALTER TABLE library.book_copies ADD COLUMN condition VARCHAR(10) NOT NULL CHECK (condition IN ('fine', 'good', 'fair', 'poor')) DEFAULT 'fair';
-ALTER TABLE library.book_copies DROP CONSTRAINT pk_copies;
+ALTER TABLE library.book_copies RENAME TO book_copies_new;
 
--- -- Create new book_copies table with additional columns
--- CREATE TABLE library.book_copies_new
--- (
---     copy_id SERIAL PRIMARY KEY,
---     book_id INT NOT NULL,
---     branch_id INT NOT NULL,
---     acquisition_date DATE NOT NULL DEFAULT CURRENT_DATE,
---     condition VARCHAR(10) NOT NULL CHECK (condition IN ('fine', 'good', 'fair', 'poor')),
---     FOREIGN KEY (book_id) REFERENCES library.book (book_id),
---     FOREIGN KEY (branch_id) REFERENCES library.library_branch (branch_id)
--- );
---
--- -- Insert data from temp_book_copies into new book_copies table
--- INSERT INTO current_book_copies (book_id, branch_id, acquisition_date, conditions)
--- select book_id, branch_id, aquisition_date
--- from temp_book_copies
--- join (SELECT date '2008-01-01' + (INTERVAL '1' MONTH * GENERATE_SERIES(0,3))) AS aquisition_date on 1 = 1
--- GROUP BY book_id, branch_id, aquisition_date;
-
+-- Checa inconsistencias
 SELECT *
 FROM (SELECT cbc.book_id, cbc.branch_id, COUNT(*), cbc.no_of_copies
       FROM library.book b
-               JOIN library.book_copies c on b.book_id = c.book_id
+               JOIN library.book_copies_new c on b.book_id = c.book_id
                JOIN current_book_copies cbc on b.book_id = cbc.book_id
       group by cbc.book_id, cbc.branch_id, cbc.no_of_copies) AS temp
 WHERE temp.count <> temp.no_of_copies;
 
 
-
 -- inserir os livros da tabela copia para a tabela alterada
-INSERT INTO library.book_copies (book_id, branch_id)
+INSERT INTO library.book_copies_new (book_id, branch_id)
 select book_id, branch_id from(
-SELECT book_id, branch_id, generate_series(1, no_of_copies)
+SELECT book_id, branch_id, generate_series(1, no_of_copies-1)
 FROM pg_temp.current_book_copies
 ORDER BY book_id, branch_id) as carlos;
 
+select * from library.book_copies_new;
+
+COMMIT;
+-- Drop temporary table
+DROP TABLE pg_temp.current_book_copies;
+
+-- Create view for backward compatibility
+CREATE VIEW library.book_copies AS
+SELECT b.book_id, c.branch_id, count(*)
+FROM library.book b
+JOIN library.book_copies_new c ON b.book_id = c.book_id
+GROUP BY c.branch_id, b.book_id;
+
 select * from library.book_copies;
 
+-- Create trigger for delete from view
+CREATE OR REPLACE FUNCTION delete_book_copy()
+RETURNS TRIGGER AS $$
+BEGIN
+    DELETE FROM library.book_copies_new
+    WHERE book_id = OLD.book_id AND branch_id = OLD.branch_id;
+    RETURN new;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER delete_book_copy_trigger
+INSTEAD OF DELETE ON library.book_copies
+FOR EACH ROW
+EXECUTE FUNCTION delete_book_copy();
+
+select * from library.book_copies;
+select * from library.book_copies_new;
+DELETE FROM library.book_copies bc WHERE bc.book_id=2;
 
 
--- ADICIONANDO INCONSISTENCIA
-INSERT INTO library.book_copies (book_id, branch_id, condition) VALUES(1, 1, 'good');
-DELETE FROM library.book_copies b WHERE b.book_id = 1 AND b.branch_id = 1 AND b.condition = 'good';
 
---
--- -- Drop temporary table
--- DROP TABLE temp_book_copies;
---
--- -- Create view for backward compatibility
--- CREATE VIEW library.book_copies AS
--- SELECT b.book_id, c.branch_id, c.copy_id, c.acquisition_date, c.condition
--- FROM library.book b
--- JOIN library.book_copies_new c ON b.book_id = c.book_id;
---
--- -- Create trigger for delete from view
--- CREATE OR REPLACE FUNCTION delete_book_copy()
--- RETURNS TRIGGER AS $$
--- BEGIN
---     DELETE FROM library.book_copies_new
---     WHERE book_id = OLD.book_id AND branch_id = OLD.branch_id AND copy_id = OLD.copy_id;
---     RETURN OLD;
--- END;
--- $$ LANGUAGE plpgsql;
---
--- CREATE TRIGGER delete_book_copy_trigger
--- INSTEAD OF DELETE ON library.book_copies
--- FOR EACH ROW
--- EXECUTE FUNCTION delete_book_copy();
---
--- -- Create trigger for update on view
--- CREATE OR REPLACE FUNCTION update_book_copy()
--- RETURNS TRIGGER AS $$
--- BEGIN
---     IF NEW.book_id <> OLD.book_id OR NEW.branch_id <> OLD.branch_id THEN
---         RAISE EXCEPTION 'You cannot change book_id or branch_id';
---     ELSIF NEW.condition = 'poor' THEN
---         RAISE EXCEPTION 'You cannot set condition as poor';
---     ELSIF NEW.condition NOT IN ('fine', 'good', 'fair', 'poor') THEN
---         RAISE EXCEPTION 'Invalid value for condition';
---     END IF;
---     UPDATE library.book_copies_new
---     SET condition = NEW.condition
---     WHERE book_id = OLD.book_id AND branch_id = OLD.branch_id AND copy_id = OLD.copy_id;
---     RETURN NEW;
--- END;
--- $$ LANGUAGE plpgsql;
---
--- CREATE TRIGGER update_book_copy_trigger
--- INSTEAD OF UPDATE ON library.book_copies
--- FOR EACH ROW
--- EXECUTE FUNCTION update_book_copy();
---
--- -- Create trigger for insert on view
--- CREATE OR REPLACE FUNCTION insert_book_copy()
--- RETURNS TRIGGER AS $$
--- BEGIN
---     IF NEW.condition = 'poor' THEN
---         RAISE EXCEPTION 'You cannot set condition as poor';
---     ELSIF NEW.condition NOT IN ('fine', 'good', 'fair', 'poor') THEN
---         RAISE EXCEPTION 'Invalid value for condition';
---     END IF;
---     INSERT INTO library.book_copies_new (book_id, branch_id, acquisition_date, condition)
---     SELECT NEW.book_id, NEW.branch_id, CURRENT_DATE, NEW.condition
---     FROM generate_series(1, NEW.no_of_copies)
---     RETURNING copy_id INTO NEW.copy_id;
---     RETURN NEW;
--- END;
--- $$ LANGUAGE plpgsql;
---
--- CREATE TRIGGER insert_book_copy_trigger
--- INSTEAD OF INSERT ON library.book_copies
--- FOR EACH ROW
--- EXECUTE FUNCTION insert_book_copy();
---
---
--- -- Query to return inconsistencies between book_copies and temp_book_copies table
--- SELECT *
--- FROM
--- (
---     SELECT b.book_id, c.branch_id, COUNT(*), SUM(t.no_of_copies)
---     FROM library.book b
---     JOIN library.book_copies_new c ON b.book_id = c.book_id
---     JOIN temp_book_copies t ON b.book_id = t.book_id AND c.branch_id = t.branch_id
---     GROUP BY b.book_id, c.branch_id
--- ) AS temp
--- WHERE temp.count <> temp.sum;
---
-ROLLBACK;
+-- Create trigger for update on view
+CREATE OR REPLACE FUNCTION update_book_copy()
+RETURNS TRIGGER AS $$
+BEGIN
+    IF NEW.book_id <> OLD.book_id OR NEW.branch_id <> OLD.branch_id THEN
+        RAISE EXCEPTION 'You cannot change book_id or branch_id';
+    END IF;
+    UPDATE library.book_copies_new
+    SET condition = NEW.condition
+    WHERE book_id = OLD.book_id AND branch_id = OLD.branch_id;
+    RETURN NEW;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE TRIGGER update_book_copy_trigger
+INSTEAD OF UPDATE ON library.book_copies
+FOR EACH ROW
+EXECUTE FUNCTION update_book_copy();

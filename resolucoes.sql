@@ -490,3 +490,54 @@ REFRESH MATERIALIZED VIEW library.month_borrowers;
 -- 5 LOANS COM PELO MENOS 30 DIAS
 select *
 from library.month_borrowers;
+
+-- EXERCICIO 2
+BEGIN;
+-- Create temporary table
+CREATE TEMPORARY TABLE current_book_copies AS
+SELECT
+    book_id,
+    branch_id,
+    no_of_copies
+FROM library.book_copies;
+
+-- Remove no_of_copies column from book_copies table, constraint and adding columns
+ALTER TABLE library.book_copies DROP COLUMN no_of_copies;
+ALTER TABLE library.book_copies DROP CONSTRAINT pk_copies;
+ALTER TABLE library.book_copies ADD COLUMN acquisition_date DATE NOT NULL DEFAULT CURRENT_DATE;
+ALTER TABLE library.book_copies ADD COLUMN condition VARCHAR(10) NOT NULL CHECK (condition IN ('fine', 'good', 'fair', 'poor')) DEFAULT 'fair';
+ALTER TABLE library.book_copies RENAME TO book_copies_new;
+
+-- Checa inconsistencias
+SELECT *
+FROM (SELECT cbc.book_id, cbc.branch_id, COUNT(*), cbc.no_of_copies
+      FROM library.book b
+               JOIN library.book_copies_new c on b.book_id = c.book_id
+               JOIN current_book_copies cbc on b.book_id = cbc.book_id
+      group by cbc.book_id, cbc.branch_id, cbc.no_of_copies) AS temp
+WHERE temp.count <> temp.no_of_copies;
+
+
+-- inserir os livros da tabela copia para a tabela alterada
+INSERT INTO library.book_copies_new (book_id, branch_id)
+select book_id, branch_id from(
+                                  SELECT book_id, branch_id, generate_series(1, no_of_copies-1)
+                                  FROM pg_temp.current_book_copies
+                                  ORDER BY book_id, branch_id) as carlos;
+
+select * from library.book_copies_new;
+
+COMMIT;
+
+-- Drop temporary table
+DROP TABLE pg_temp.current_book_copies;
+
+-- Create view for backward compatibility
+CREATE VIEW library.book_copies AS
+SELECT b.book_id, c.branch_id, count(*)
+FROM library.book b
+         JOIN library.book_copies_new c ON b.book_id = c.book_id
+GROUP BY c.branch_id, b.book_id;
+
+
+SELECT * FROM library.book_copies;
