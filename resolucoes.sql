@@ -546,7 +546,7 @@ DROP TABLE pg_temp.current_book_copies;
 
 -- Create view for backward compatibility
 CREATE VIEW library.book_copies AS
-SELECT b.book_id, c.branch_id, count(*)
+SELECT b.book_id, c.branch_id, count(*) as no_of_copies
 FROM library.book b
          JOIN library.book_copies_new c ON b.book_id = c.book_id
 GROUP BY c.branch_id, b.book_id;
@@ -635,4 +635,82 @@ VALUES(1, 1, 10);
 
 SELECT * FROM library.book_copies_new;
 SELECT * FROM library.book_copies;
+
+-- EXERCICIO 3
+CREATE TABLE library.author_update_log
+(
+    log_id      SERIAL PRIMARY KEY,
+    book_id     INT,
+    old_name    VARCHAR(80),
+    new_name    VARCHAR(80),
+    update_time TIMESTAMP
+);
+
+CREATE EXTENSION IF NOT EXISTS fuzzystrmatch;
+
+
+CREATE OR REPLACE FUNCTION library.name_similarity(name1 VARCHAR, name2 VARCHAR) RETURNS INT
+AS $$
+BEGIN
+    RETURN levenshtein(LOWER($1), LOWER($2));
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE PROCEDURE library.reconcile_authors()
+LANGUAGE plpgsql
+AS $$
+DECLARE
+    rec1 RECORD;
+    rec2 RECORD;
+BEGIN
+    -- Create a temporary table to store update operations
+    CREATE TEMP TABLE updates_to_apply (book_id INT, old_name VARCHAR(80), new_name VARCHAR(80));
+
+    FOR rec1 IN (SELECT * FROM library.book_authors) LOOP
+        FOR rec2 IN (SELECT * FROM library.book_authors WHERE book_id <> rec1.book_id AND author_name <> rec1.author_name) LOOP
+            IF library.name_similarity(rec1.author_name, rec2.author_name) <= 2 THEN
+                IF SUBSTRING(rec1.author_name, 1, 1) = SUBSTRING(rec2.author_name, 1, 1) AND SUBSTRING(rec1.author_name FROM ' [A-Za-z]\.') = SUBSTRING(rec2.author_name FROM ' [A-Za-z]\.') THEN
+                    -- Store the update operations in the temporary table
+                    INSERT INTO updates_to_apply (book_id, old_name, new_name)
+                    VALUES (rec2.book_id, rec2.author_name, rec1.author_name);
+                END IF;
+            END IF;
+        END LOOP;
+    END LOOP;
+
+    -- Perform the update operations and log them
+    FOR rec2 IN (SELECT * FROM updates_to_apply) LOOP
+        UPDATE library.book_authors
+        SET author_name = rec2.new_name
+        WHERE book_id = rec2.book_id AND author_name = rec2.old_name;
+
+        INSERT INTO library.author_update_log (book_id, old_name, new_name, update_time)
+        VALUES (rec2.book_id, rec2.old_name, rec2.new_name, NOW());
+    END LOOP;
+
+    -- Drop the temporary table
+    DROP TABLE updates_to_apply;
+END;
+$$;
+
+-- Insert test data
+INSERT INTO library.publisher(name) VALUES('Publisher 1');
+
+INSERT INTO library.book (title, publisher_name) VALUES ('Book 1', 'Publisher 1');
+INSERT INTO library.book (title, publisher_name) VALUES ('Book 2', 'Publisher 1');
+INSERT INTO library.book (title, publisher_name) VALUES ('Book 3', 'Publisher 1');
+
+
+SELECT * FROM library.book;
+
+INSERT INTO library.book_authors (book_id, author_name) VALUES (1, 'John Joseph Powell');
+INSERT INTO library.book_authors (book_id, author_name) VALUES (2, 'John J. Powell');
+INSERT INTO library.book_authors (book_id, author_name) VALUES (3, 'John Joseph Powel');
+
+-- Call the procedure
+CALL library.reconcile_authors();
+
+-- Check the updated data
+SELECT * FROM library.book_authors;
+SELECT * FROM library.author_update_log;
 
