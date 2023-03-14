@@ -500,7 +500,7 @@ SELECT book_id,
        no_of_copies
 FROM library.book_copies;
 
--- Remove no_of_copies column from book_copies table, constraint and adding columns
+-- Remove no_of_copies column from book_copies table, constraint e adiciona colunas
 ALTER TABLE library.book_copies
     DROP COLUMN no_of_copies;
 ALTER TABLE library.book_copies
@@ -541,17 +541,17 @@ from library.book_copies_new;
 
 COMMIT;
 
--- Drop temporary table
+-- Drop tabela temporária
 DROP TABLE pg_temp.current_book_copies;
 
--- Create view for backward compatibility
+-- View para compatibilidade
 CREATE VIEW library.book_copies AS
 SELECT b.book_id, c.branch_id, count(*) as no_of_copies
 FROM library.book b
          JOIN library.book_copies_new c ON b.book_id = c.book_id
 GROUP BY c.branch_id, b.book_id;
 
--- Create trigger for delete from view
+-- Trigger para delete na view
 CREATE OR REPLACE FUNCTION delete_book_copy()
     RETURNS TRIGGER AS $$
 BEGIN
@@ -572,7 +572,7 @@ DELETE FROM library.book_copies bc WHERE bc.book_id=1;
 select * from library.book_copies;
 select * from library.book_copies_new;
 
--- Create trigger for update on view
+-- Trigger para update na view
 CREATE OR REPLACE FUNCTION update_book_copy()
     RETURNS TRIGGER AS $$
 DECLARE
@@ -637,80 +637,140 @@ SELECT * FROM library.book_copies_new;
 SELECT * FROM library.book_copies;
 
 -- EXERCICIO 3
-CREATE TABLE library.author_update_log
-(
-    log_id      SERIAL PRIMARY KEY,
-    book_id     INT,
-    old_name    VARCHAR(80),
-    new_name    VARCHAR(80),
-    update_time TIMESTAMP
-);
 
+-- Para usar a função levenshtein
 CREATE EXTENSION IF NOT EXISTS fuzzystrmatch;
 
+-- Criar a tabela de logs
+CREATE TABLE library.author_update_log
+(
+    log_id          SERIAL PRIMARY KEY,
+    book_id         INT,
+    old_author_name VARCHAR(80),
+    new_author_name VARCHAR(80),
+    update_timestamp TIMESTAMP,
+    FOREIGN KEY (book_id) REFERENCES library.book (book_id)
+);
 
-CREATE OR REPLACE FUNCTION library.name_similarity(name1 VARCHAR, name2 VARCHAR) RETURNS INT
+-- Função para verificar se dois nomes são semelhantes (semelhantes = no máximo dois chars diferentes, considerando abreviações como semelhança também)
+CREATE OR REPLACE FUNCTION library.names_are_similar(name1 VARCHAR, name2 VARCHAR) RETURNS BOOLEAN
 AS $$
+DECLARE
+  name1_parts TEXT[];
+  name2_parts TEXT[];
+  num_parts1 INT;
+  num_parts2 INT;
+  i INT;
+  total_distance INT := 0;
+  max_distance INT := 2;
 BEGIN
-    RETURN levenshtein(LOWER($1), LOWER($2));
+  -- Divide os nomes em partes
+  name1_parts := STRING_TO_ARRAY(name1, ' ');
+  name2_parts := STRING_TO_ARRAY(name2, ' ');
+
+  num_parts1 := ARRAY_LENGTH(name1_parts, 1);
+  num_parts2 := ARRAY_LENGTH(name2_parts, 1);
+
+  -- Se o número de partes for diferente, os nomes não são considerados semelhantes
+  IF num_parts1 <> num_parts2 THEN
+    RETURN FALSE;
+  END IF;
+
+  -- Para cada parte do nome, verifica se são iniciais ou palavras completas
+  FOR i IN 1..num_parts1 LOOP
+    IF name1_parts[i] LIKE '_.' OR name2_parts[i] LIKE '_.' THEN
+      -- Se uma das partes for uma inicial, verifica se a primeira letra é igual
+      IF LEFT(name1_parts[i], 1) <> LEFT(name2_parts[i], 1) THEN
+        RETURN FALSE;
+      END IF;
+    ELSE
+      -- Se ambas as partes forem palavras completas, calcula a distância de Levenshtein
+      total_distance := total_distance + levenshtein(LOWER(name1_parts[i]), LOWER(name2_parts[i]));
+
+      -- Se a distância total ultrapassar o limite máximo, os nomes não são considerados semelhantes
+      IF total_distance > max_distance THEN
+        RETURN FALSE;
+      END IF;
+    END IF;
+  END LOOP;
+
+  -- Se todas as partes forem semelhantes, retorna verdadeiro
+  RETURN TRUE;
 END;
 $$ LANGUAGE plpgsql;
+
 
 CREATE OR REPLACE PROCEDURE library.reconcile_authors()
 LANGUAGE plpgsql
 AS $$
 DECLARE
-    rec1 RECORD;
-    rec2 RECORD;
+  author1 RECORD;
+  author2 RECORD;
+  frequent_author_name VARCHAR;
+  least_frequent_author_name VARCHAR;
 BEGIN
-    -- Create a temporary table to store update operations
-    CREATE TEMP TABLE updates_to_apply (book_id INT, old_name VARCHAR(80), new_name VARCHAR(80));
+  FOR author1 IN (SELECT DISTINCT author_name FROM library.book_authors) LOOP
+    FOR author2 IN (SELECT DISTINCT author_name FROM library.book_authors WHERE author_name <> author1.author_name) LOOP
+      IF library.names_are_similar(author1.author_name, author2.author_name) THEN
+        -- Determina o mais frequente e o menos frequente
+        SELECT a1.author_name, a2.author_name
+        INTO frequent_author_name, least_frequent_author_name
+        FROM (
+          SELECT author_name, COUNT(*) count
+          FROM library.book_authors
+          WHERE author_name = author1.author_name
+          GROUP BY author_name
+        ) a1,
+        (
+          SELECT author_name, COUNT(*) count
+          FROM library.book_authors
+          WHERE author_name = author2.author_name
+          GROUP BY author_name
+        ) a2
+        WHERE a1.count >= a2.count;
 
-    FOR rec1 IN (SELECT * FROM library.book_authors) LOOP
-        FOR rec2 IN (SELECT * FROM library.book_authors WHERE book_id <> rec1.book_id AND author_name <> rec1.author_name) LOOP
-            IF library.name_similarity(rec1.author_name, rec2.author_name) <= 2 THEN
-                IF SUBSTRING(rec1.author_name, 1, 1) = SUBSTRING(rec2.author_name, 1, 1) AND SUBSTRING(rec1.author_name FROM ' [A-Za-z]\.') = SUBSTRING(rec2.author_name FROM ' [A-Za-z]\.') THEN
-                    -- Store the update operations in the temporary table
-                    INSERT INTO updates_to_apply (book_id, old_name, new_name)
-                    VALUES (rec2.book_id, rec2.author_name, rec1.author_name);
-                END IF;
-            END IF;
-        END LOOP;
-    END LOOP;
-
-    -- Perform the update operations and log them
-    FOR rec2 IN (SELECT * FROM updates_to_apply) LOOP
+        -- Update do menos frequente para ser igual ao mais frequente
         UPDATE library.book_authors
-        SET author_name = rec2.new_name
-        WHERE book_id = rec2.book_id AND author_name = rec2.old_name;
+        SET author_name = frequent_author_name
+        WHERE author_name = least_frequent_author_name;
 
-        INSERT INTO library.author_update_log (book_id, old_name, new_name, update_time)
-        VALUES (rec2.book_id, rec2.old_name, rec2.new_name, NOW());
+        -- Faz o log do update
+        INSERT INTO library.author_update_log (book_id, old_author_name, new_author_name, update_timestamp)
+        SELECT book_id, least_frequent_author_name, frequent_author_name, NOW()
+        FROM library.book_authors
+        WHERE author_name = frequent_author_name;
+      END IF;
     END LOOP;
-
-    -- Drop the temporary table
-    DROP TABLE updates_to_apply;
+  END LOOP;
 END;
 $$;
 
--- Insert test data
+-- Dados de teste
 INSERT INTO library.publisher(name) VALUES('Publisher 1');
 
 INSERT INTO library.book (title, publisher_name) VALUES ('Book 1', 'Publisher 1');
 INSERT INTO library.book (title, publisher_name) VALUES ('Book 2', 'Publisher 1');
 INSERT INTO library.book (title, publisher_name) VALUES ('Book 3', 'Publisher 1');
-
-
-SELECT * FROM library.book;
+INSERT INTO library.book (title, publisher_name) VALUES ('Book 4', 'Publisher 1');
+INSERT INTO library.book (title, publisher_name) VALUES ('Book 5', 'Publisher 1');
+INSERT INTO library.book (title, publisher_name) VALUES ('Book 6', 'Publisher 1');
+INSERT INTO library.book (title, publisher_name) VALUES ('Book 7', 'Publisher 1');
+INSERT INTO library.book (title, publisher_name) VALUES ('Book 8', 'Publisher 1');
+INSERT INTO library.book (title, publisher_name) VALUES ('Book 9', 'Publisher 1');
 
 INSERT INTO library.book_authors (book_id, author_name) VALUES (1, 'John Joseph Powell');
 INSERT INTO library.book_authors (book_id, author_name) VALUES (2, 'John J. Powell');
 INSERT INTO library.book_authors (book_id, author_name) VALUES (3, 'John Joseph Powel');
+INSERT INTO library.book_authors (book_id, author_name) VALUES (4, 'John Joseph Powel');
+INSERT INTO library.book_authors (book_id, author_name) VALUES (5, 'John Joseph Powel');
+INSERT INTO library.book_authors (book_id, author_name) VALUES (6, 'John Joseph Powell');
+INSERT INTO library.book_authors (book_id, author_name) VALUES (7, 'John Joseph Powell');
+INSERT INTO library.book_authors (book_id, author_name) VALUES (8, 'John Joseph Powell');
+INSERT INTO library.book_authors (book_id, author_name) VALUES (9, 'John Joseph Powell');
 
--- Call the procedure
+-- Chama o procedimento
 CALL library.reconcile_authors();
 
--- Check the updated data
+-- Checa os dados atualizados
 SELECT * FROM library.book_authors;
 SELECT * FROM library.author_update_log;
-
